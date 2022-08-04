@@ -1,4 +1,3 @@
-import { useParams } from "react-router-dom";
 import "./CategoryCard.css";
 
 interface CategoryProps {
@@ -6,13 +5,11 @@ interface CategoryProps {
     imgPath: string;
 }
 
-
-
 function CategoryCard(category: CategoryProps): JSX.Element {
     return (
         <div className="CategoryCard">
-            <h1>{category?.name}</h1>
-            <img src={category?.imgPath}/>
+            <h1>{category.name}</h1>
+            <img src={category.imgPath}/>
         </div>
     );
 }
