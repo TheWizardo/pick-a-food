@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import CategoryModel from "../../../Models/categoryModel";
 import foodService from "../../../Services/FoodService";
+import randomService from "../../../Services/RandomService";
 import CategoryCard from "../CategoryCard/CategoryCard";
 import "./Home.css";
 
@@ -11,6 +12,30 @@ function Home(): JSX.Element {
     const [usedCategories, setUsedCategories] = useState<boolean[]>([]);
     const [index, setIndex] = useState<number>(-1);
 
+    function checkAllUsed() {
+        if (usedCategories.every(e => e)) {
+            console.log("clear");
+            const clearArr = Array.from(Array(categories.length).keys()).map(e => false);
+            setUsedCategories(clearArr);
+            setIndex(randomService.randomNumberFromArray(clearArr));
+            return true;
+        }
+        return false;
+    }
+
+    function clickLike() {
+        alert(categories[index].strCategory);
+    }
+
+    function clickDislike() {
+        const tempUsed = usedCategories;
+        tempUsed[index] = true;
+        setUsedCategories(tempUsed);
+        if (!checkAllUsed()) {
+            setIndex(randomService.randomNumberFromArray(usedCategories));
+        }
+    }
+
     useEffect(() => {
         (async () => {
             setCategories(await foodService.getAllCategories());
@@ -18,34 +43,19 @@ function Home(): JSX.Element {
     }, []);
 
     useEffect(() => {
+        console.log("setting up");
         if (categories) {
-            setUsedCategories(Array.from(Array(categories.length).keys()).map(e => false));
-            setIndex(Math.floor(Math.random() * categories.length));
+            const clearArr = Array.from(Array(categories.length).keys()).map(e => false);
+            setUsedCategories(clearArr);
+            setIndex(randomService.randomNumberFromArray(clearArr));
         }
-    }, categories);
-
-    useEffect(() => {
-        if (categories) {
-            const tempUsed = usedCategories;
-            if (tempUsed.every(e => e === true)) {
-                setUsedCategories(Array.from(Array(categories.length).keys()).map(e => false));
-                setIndex(Math.floor(Math.random() * categories.length));
-            }
-            if (!tempUsed[index]) {
-                setIndex(Math.floor(Math.random() * categories.length));
-            }
-            else {
-                tempUsed[index] = true;
-                setUsedCategories(tempUsed);
-            }
-        }
-    }, [index]);
+    }, [categories]);
 
     return (
         <div className="Home">
-            {index > 0 && <CategoryCard name={categories[index].strCategory} imgPath={categories[index].strCategoryThumb} />}
-            <button>like</button>
-            <button>dislike</button>
+            {index >= 0 && <CategoryCard name={categories[index].strCategory} imgPath={categories[index].strCategoryThumb} />}
+            <button onClick={clickLike}>like</button>
+            <button onClick={clickDislike}>dislike</button>
         </div>
     );
 }
