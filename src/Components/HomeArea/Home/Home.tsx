@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import CategoryModel from "../../../Models/categoryModel";
 import foodService from "../../../Services/FoodService";
 import randomService from "../../../Services/RandomService";
@@ -11,6 +12,7 @@ function Home(): JSX.Element {
     const [categories, setCategories] = useState<CategoryModel[]>();
     const [usedCategories, setUsedCategories] = useState<boolean[]>([]);
     const [index, setIndex] = useState<number>(-1);
+    const navigate = useNavigate();
 
     function checkAllUsed() {
         if (usedCategories.every(e => e)) {
@@ -24,7 +26,7 @@ function Home(): JSX.Element {
     }
 
     function clickLike() {
-        alert(categories[index].strCategory);
+        navigate("/category/" + categories[index].strCategory);
     }
 
     function clickDislike() {
