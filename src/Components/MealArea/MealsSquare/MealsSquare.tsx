@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import MealModel from "../../../Models/mealModel";
 import foodService from "../../../Services/FoodService";
 import randomService from "../../../Services/RandomService";
@@ -22,7 +22,9 @@ function MealsSquare(): JSX.Element {
 
     return (
         <div className="MealsSquare">
-            {randMeals && randMeals.map(e => <MealCard name={e.strMeal} imgPath={e.strMealThumb} key={e.idMeal}/>)}
+            {randMeals && randMeals.map(e => <NavLink to={`/meal/${e.idMeal}`}>
+                <MealCard name={e.strMeal} imgPath={e.strMealThumb} key={e.idMeal} />
+            </NavLink>)}
         </div>
     );
 }
