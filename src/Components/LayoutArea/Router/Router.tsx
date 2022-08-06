@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import Home from "../../HomeArea/Home/Home";
 import MealsSquare from "../../MealArea/MealsSquare/MealsSquare";
+import Recipe from "../../MealArea/Recipe/Recipe";
 import "./Router.css";
 
 function Router(): JSX.Element {
@@ -12,6 +13,7 @@ function Router(): JSX.Element {
                 <Route path="/home" element={<Home />} />
 
                 <Route path="/category/:category" element={ <MealsSquare/>} />
+                <Route path="/meal/:mealId" element={ <Recipe/>} />
             </Routes>
         </div>
     );
