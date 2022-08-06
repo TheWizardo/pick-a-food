@@ -1,3 +1,30 @@
-.Home {
-	
+.Home > .container {
+    display: flex;
+}
+
+.Home > .container > * {
+    width: 16.66vw;
+    height: 16.66vw;
+    border: none;
+    background-color: transparent;
+    font-size: 8vw;
+    border-radius: 50%;
+    /* outline: 1px solid black; */
+}    
+
+.Home .like {
+    color: green;
+}
+
+.like:hover {
+    background-color: aquamarine;
+}
+
+
+.Home .dislike {
+    color: red;
+}
+
+.dislike:hover {
+    background-color: pink;
 }

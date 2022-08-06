@@ -4,6 +4,8 @@ import CategoryModel from "../../../Models/categoryModel";
 import foodService from "../../../Services/FoodService";
 import randomService from "../../../Services/RandomService";
 import CategoryCard from "../CategoryCard/CategoryCard";
+import { BsHeart } from "react-icons/bs";
+import { CgClose } from "react-icons/cg";
 import "./Home.css";
 
 
@@ -56,8 +58,18 @@ function Home(): JSX.Element {
     return (
         <div className="Home">
             {index >= 0 && <CategoryCard name={categories[index].strCategory} imgPath={categories[index].strCategoryThumb} />}
-            <button onClick={clickLike}>like</button>
-            <button onClick={clickDislike}>dislike</button>
+            <div className="container">
+                <div></div>
+                <button onClick={clickDislike} className="dislike">
+                    <CgClose />
+                </button>
+                <div></div>
+                <div></div>
+                <button onClick={clickLike} className="like">
+                    <BsHeart />
+                </button>
+                <div></div>
+            </div>
         </div>
     );
 }
